@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { Row, Col, Jumbotron, Button, Glyphicon } from 'react-bootstrap';
+import { Row, Col, Jumbotron } from 'react-bootstrap';
+import ModalAdd from './ModalAdd';
+import ModalComent from './ModalComent';
+import ModalListComent from './ModalListComent';
 
 class ListPost  extends Component {
 	render() {
@@ -7,9 +10,7 @@ class ListPost  extends Component {
 			<div>    		
     		<Row>
     			<Col md={ 12 }>
-    				<Button bsStyle="primary" className="right">
-    					<Glyphicon glyph="plus" />
-    				</Button>
+    				<ModalAdd></ModalAdd>
     			</Col>
     		</Row>
     		<br/>
@@ -21,8 +22,8 @@ class ListPost  extends Component {
     						Conteúdo da postagem
   						</p>
   						<p>
-    						<Button bsStyle="primary">Comentar</Button>
-    						<Button bsStyle="link">Comentarios</Button>
+    						<ModalComent></ModalComent>
+    						<ModalListComent></ModalListComent>
   						</p>
 					</Jumbotron>
     			</Col>
