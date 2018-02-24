@@ -1,19 +1,8 @@
 export const ADD_POST = 'ADD_POST';
-export const ADD_COMMENT = 'ADD_COMMENT';
 
-export function addPost({author, title, body}){
+export function addPost(post){
 	return {
 		type: ADD_POST,
-		author,
-		title,
-		body
-	};
-}
-
-export function addComment({author, comment}){
-	return {
-		type: ADD_COMMENT,
-		author,
-		comment
+		post
 	};
 }

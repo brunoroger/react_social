@@ -1,26 +1,17 @@
 import {
-	ADD_RECIPE,
-	ADD_COMMENT
+	ADD_POST
 } from '../actions';
 
-const initialState = {
-	post: []
-};
-
-function post(state = initialState, action){
-	const {author, title, body} = action;
-	
+function post(state {}, action){
 	switch(action.type){
-		case ADD_RECIPE :
+		case ADD_POST :
 			return {
 				...state,
-				[post]: action
+				...action.post
 			};
 		default :
 			return state;
 	}
 }
 
-export default combineReducers({
-	post
-});
+export default post;
