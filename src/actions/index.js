@@ -1,8 +1,3 @@
 export const ADD_POST = 'ADD_POST';
 
-export function addPost(post){
-	return {
-		type: ADD_POST,
-		post
-	};
-}
+export const addPost = post => ({ type: ADD_POST, obj_post: post });

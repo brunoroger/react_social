@@ -2,16 +2,17 @@ import {
 	ADD_POST
 } from '../actions';
 
-function post(state {}, action){
+const initialState = {
+	post: []
+};
+
+const reducer = (state = initialState, action) => {
 	switch(action.type){
-		case ADD_POST :
-			return {
-				...state,
-				...action.post
-			};
-		default :
+		case ADD_POST:
+			return { ...state, post: [...state.post, action.obj_post] };
+		default:
 			return state;
 	}
-}
+};
 
-export default post;
+export default reducer;
