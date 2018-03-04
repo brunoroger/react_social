@@ -24,28 +24,28 @@ class ModalComent  extends Component {
 		render(){
 			return (
 				<div>				
-				<Button bsStyle="primary" ClassName="left" onClick={this.handleShow}>Comentar</Button>
-				<Modal show={this.state.show} onHide={this.handleClose}>
-    				<Modal.Header>
-      				<Modal.Title>Comentário</Modal.Title>
-    				</Modal.Header>
-    				<Modal.Body>
-    					<form>
-    						<FormGroup controlId="nome">
-    							<ControlLabel>Nome:</ControlLabel>
-    							<FormControl id="nome" type="text" />
-    						</FormGroup>
-    						<FormGroup controlId="comentario">
-      						<ControlLabel>Comentário</ControlLabel>
-      						<FormControl componentClass="textarea" id="comentario"/>
-    						</FormGroup>
-    					</form>
-    				</Modal.Body>
-    				<Modal.Footer>
-      				<Button onClick={this.handleClose}>Fechar</Button>
-      				<Button bsStyle="primary">Cadastrar</Button>
-    				</Modal.Footer>
-				</Modal>
+					<Button bsStyle="primary" onClick={this.handleShow}>Comentar</Button>
+					<Modal show={this.state.show} onHide={this.handleClose}>
+						<Modal.Header>
+							<Modal.Title>Comentário</Modal.Title>
+						</Modal.Header>
+						<Modal.Body>
+							<form>
+								<FormGroup controlId="nome">
+									<ControlLabel>Nome:</ControlLabel>
+									<FormControl id="nome" type="text" />
+								</FormGroup>
+								<FormGroup controlId="comentario">
+								<ControlLabel>Comentário</ControlLabel>
+								<FormControl componentClass="textarea" id="comentario"/>
+								</FormGroup>
+							</form>
+						</Modal.Body>
+						<Modal.Footer>
+						<Button onClick={this.handleClose}>Fechar</Button>
+						<Button bsStyle="primary">Cadastrar</Button>
+						</Modal.Footer>
+					</Modal>
 				</div>
 			);
 		}

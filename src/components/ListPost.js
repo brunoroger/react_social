@@ -22,13 +22,12 @@ const ConnectedListPost = ({post}) => (
 				<Col md={ 12 }>
 					<Jumbotron>
 						<h2>{el.title}</h2>
+						<h3>{el.author}</h3>
 						<p>
-							Conteúdo da postagem
+							{el.body}
 						</p>
-						<p>
-							<ModalComent></ModalComent>
-							<ModalListComent></ModalListComent>
-						</p>
+						<ModalComent></ModalComent>
+						<ModalListComent></ModalListComent>
 					</Jumbotron>
 				</Col>
 			</Row>

@@ -24,7 +24,7 @@ class ModalListComent  extends Component {
 		render(){
 			return (
 				<div>				
-				<Button bsStyle="link" ClassName="left" onClick={this.handleShow}>Comentários</Button>
+				<Button bsStyle="link" onClick={this.handleShow}>Comentários</Button>
 				<Modal show={this.state.show} onHide={this.handleClose}>
     				<Modal.Header>
       				<Modal.Title>Comentários</Modal.Title>
