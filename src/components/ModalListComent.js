@@ -9,7 +9,7 @@ class ModalListComent  extends Component {
     		this.handleClose = this.handleClose.bind(this);
 
     		this.state = {
-      		show: false
+				show: false
     		};
  		 }
 
@@ -22,6 +22,7 @@ class ModalListComent  extends Component {
   		}
 		
 		render(){
+			console.log(this.props.comment);
 			return (
 				<div>				
 				<Button bsStyle="link" onClick={this.handleShow}>Comentários</Button>
@@ -30,14 +31,16 @@ class ModalListComent  extends Component {
       				<Modal.Title>Comentários</Modal.Title>
     				</Modal.Header>
     				<Modal.Body>
-    					<Row>
-    						<Col md={ 12 }>
-    							<Well>
-    								<h4>Autor</h4>
-    								<p>Conteúdo</p>
-    							</Well>
-    						</Col>
-    					</Row>
+						{this.props.comment && this.props.comment.map(el => (
+							<Row key={el.id}>
+								<Col md={ 12 }>
+									<Well>
+										<h4>{el.author}</h4>
+										<p>{el.body}</p>
+									</Well>
+								</Col>
+							</Row>
+						))}
     				</Modal.Body>
     				<Modal.Footer>
       				<Button onClick={this.handleClose}>Fechar</Button>

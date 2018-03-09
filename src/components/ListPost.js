@@ -26,8 +26,8 @@ const ConnectedListPost = ({post}) => (
 						<p>
 							{el.body}
 						</p>
-						<ModalComent></ModalComent>
-						<ModalListComent></ModalListComent>
+						<ModalComent idPost={el.id}></ModalComent>
+						<ModalListComent comment={el.comment}></ModalListComent>
 					</Jumbotron>
 				</Col>
 			</Row>
