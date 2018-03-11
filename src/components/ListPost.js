@@ -2,6 +2,7 @@ import React from 'react';
 import { Row, Col, Jumbotron } from 'react-bootstrap';
 import { connect } from "react-redux";
 import ModalAdd from './ModalAdd';
+import ModalEdit from './ModalEdit';
 import ModalComent from './ModalComent';
 import ModalListComent from './ModalListComent';
 
@@ -26,8 +27,9 @@ const ConnectedListPost = ({post}) => (
 						<p>
 							{el.body}
 						</p>
+						<ModalEdit post={el}></ModalEdit>
 						<ModalComent idPost={el.id}></ModalComent>
-						<ModalListComent comment={el.comment}></ModalListComent>
+						<ModalListComent idPost={el.id} ></ModalListComent>
 					</Jumbotron>
 				</Col>
 			</Row>

@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import { Modal, Button, Row, Col, Well } from 'react-bootstrap';
+import { connect } from "react-redux";
+import ModalEditComent from "./ModalEditComent";
+
+const mapStateToProps = state => {
+	return { comment: state.comment };
+};
 
 class ModalListComent  extends Component {
 		constructor(props, context) {
@@ -22,7 +28,6 @@ class ModalListComent  extends Component {
   		}
 		
 		render(){
-			console.log(this.props.comment);
 			return (
 				<div>				
 				<Button bsStyle="link" onClick={this.handleShow}>Comentários</Button>
@@ -31,19 +36,20 @@ class ModalListComent  extends Component {
       				<Modal.Title>Comentários</Modal.Title>
     				</Modal.Header>
     				<Modal.Body>
-						{this.props.comment && this.props.comment.map(el => (
+						{this.props.comment && this.props.comment.filter(c => c.parentId === this.props.idPost).map(el => (
 							<Row key={el.id}>
 								<Col md={ 12 }>
 									<Well>
 										<h4>{el.author}</h4>
 										<p>{el.body}</p>
+										<p><ModalEditComent comment={el}></ModalEditComent></p>
 									</Well>
 								</Col>
 							</Row>
 						))}
     				</Modal.Body>
     				<Modal.Footer>
-      				<Button onClick={this.handleClose}>Fechar</Button>
+						<Button onClick={this.handleClose}>Fechar</Button>
     				</Modal.Footer>
 				</Modal>
 				</div>
@@ -51,4 +57,4 @@ class ModalListComent  extends Component {
 		}
 }
 
-export default ModalListComent;
+export default connect(mapStateToProps)(ModalListComent);
