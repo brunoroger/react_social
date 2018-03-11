@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, Button, Glyphicon, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 import { connect } from "react-redux";
-import uuidv1 from "uuid";
 import serializeForm from 'form-serialize';
 import { editComment } from '../actions';
 

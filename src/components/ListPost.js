@@ -1,16 +1,23 @@
 import React from 'react';
-import { Row, Col, Jumbotron } from 'react-bootstrap';
+import { Row, Col, Jumbotron, Button } from 'react-bootstrap';
 import { connect } from "react-redux";
 import ModalAdd from './ModalAdd';
 import ModalEdit from './ModalEdit';
 import ModalComent from './ModalComent';
 import ModalListComent from './ModalListComent';
+import { removePost } from '../actions';
 
 const mapStateToProps = state => {
 	return { post: state.post };
 };
 
-const ConnectedListPost = ({post}) => (
+const mapDispatchToProps = dispatch => {
+	return {
+		removePost: idPost => dispatch(removePost(idPost))
+	};
+};
+
+const ConnectedListPost = ({post, removePost}) => (
 	<div>    		
 		<Row>
 			<Col md={ 12 }>
@@ -18,7 +25,7 @@ const ConnectedListPost = ({post}) => (
 			</Col>
 		</Row>
 		<br/>
-		{post.map(el => (
+		{post.filter(el => !el.deleted ).map(el => (
 			<Row key={el.id}>
 				<Col md={ 12 }>
 					<Jumbotron>
@@ -27,6 +34,7 @@ const ConnectedListPost = ({post}) => (
 						<p>
 							{el.body}
 						</p>
+						<Button onClick={() => {removePost(el.id)}}>Remover Post</Button>
 						<ModalEdit post={el}></ModalEdit>
 						<ModalComent idPost={el.id}></ModalComent>
 						<ModalListComent idPost={el.id} ></ModalListComent>
@@ -37,6 +45,6 @@ const ConnectedListPost = ({post}) => (
 	</div>
 );
 
-const ListPost = connect(mapStateToProps)(ConnectedListPost);
+const ListPost = connect(mapStateToProps, mapDispatchToProps)(ConnectedListPost);
 
 export default ListPost;

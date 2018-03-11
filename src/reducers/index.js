@@ -1,6 +1,7 @@
 import {
 	ADD_POST,
 	EDIT_POST,
+	REMOVE_POST,
 	ADD_COMMENT,
 	EDIT_COMMENT
 } from '../actions';
@@ -26,6 +27,16 @@ const reducer = (state = initialState, action) => {
 			});
 			
 			return { ...state, post: updatePost };
+		case REMOVE_POST:
+			const deletePost = state.post.map(item => {
+				if(item.id === action.idPost){
+					return {...item, deleted: true };
+				}else{
+					return item;
+				}
+			});
+			
+			return { ...state, post: deletePost };
 		case ADD_COMMENT:
 			return { ...state, comment: [...state.comment, action.comment] };
 		case EDIT_COMMENT:
