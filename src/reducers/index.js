@@ -10,6 +10,20 @@ import {
 //import { searchId } from '../util/helper';
 
 const initialState = {
+	categories: [
+		{
+			id: 1,
+			name: 'Social'
+		},
+		{
+			id: 2,
+			name: 'Mídia'
+		},
+		{
+			id: 3,
+			name: 'Eventos'
+		}
+	],
 	post: [],
 	comment: []
 };
@@ -17,6 +31,7 @@ const initialState = {
 const reducer = (state = initialState, action) => {
 	switch(action.type){
 		case ADD_POST:
+			console.log({ ...state, post: [...state.post, action.post] });
 			return { ...state, post: [...state.post, action.post] };
 		case EDIT_POST:
 			const updatePost = state.post.map(item => {

@@ -4,6 +4,10 @@ import { connect } from "react-redux";
 import serializeForm from 'form-serialize';
 import { editPost } from '../actions';
 
+const mapStateToProps = state => {
+	return { categories: state.categories };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     editPost: post => dispatch(editPost(post))
@@ -58,6 +62,15 @@ class ModalEdit  extends Component {
 									<ControlLabel>Título:</ControlLabel>
 									<FormControl name="title" id="title" defaultValue={this.props.post.title} type="text" />
 								</FormGroup>
+								<FormGroup controlId="idCategorie">
+								  <ControlLabel>Categoria:</ControlLabel>
+								  <FormControl componentClass="select" name="idCategorie" id="idCategorie" defaultValue={this.props.post.idCategorie}>
+									<option value="">Selecione</option>
+									{this.props.categories.map(el => (
+										<option key={el.id} value={el.id}>{el.name}</option>
+									))}
+								  </FormControl>
+								</FormGroup>
 								<FormGroup controlId="body">
 									<ControlLabel>Conteúdo</ControlLabel>
 									<FormControl name="body" defaultValue={this.props.post.body} componentClass="textarea" id="body"/>
@@ -74,4 +87,4 @@ class ModalEdit  extends Component {
 		}
 }
 
-export default connect(null, mapDispatchToProps)(ModalEdit);
+export default connect(mapStateToProps, mapDispatchToProps)(ModalEdit);

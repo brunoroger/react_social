@@ -8,7 +8,10 @@ import ModalListComent from './ModalListComent';
 import { removePost } from '../actions';
 
 const mapStateToProps = state => {
-	return { post: state.post };
+	return {
+		post: state.post,
+		categories: state.categories
+	};
 };
 
 const mapDispatchToProps = dispatch => {
@@ -17,7 +20,7 @@ const mapDispatchToProps = dispatch => {
 	};
 };
 
-const ConnectedListPost = ({post, removePost}) => (
+const ConnectedListPost = ({post, categories, removePost}) => (
 	<div>    		
 		<Row>
 			<Col md={ 12 }>
@@ -25,22 +28,27 @@ const ConnectedListPost = ({post, removePost}) => (
 			</Col>
 		</Row>
 		<br/>
-		{post.filter(el => !el.deleted ).map(el => (
-			<Row key={el.id}>
-				<Col md={ 12 }>
-					<Jumbotron>
-						<h2>{el.title}</h2>
-						<h3>{el.author}</h3>
-						<p>
-							{el.body}
-						</p>
-						<Button onClick={() => {removePost(el.id)}}>Remover Post</Button>
-						<ModalEdit post={el}></ModalEdit>
-						<ModalComent idPost={el.id}></ModalComent>
-						<ModalListComent idPost={el.id} ></ModalListComent>
-					</Jumbotron>
-				</Col>
-			</Row>
+		{categories.map(cat => (
+			<div key={cat.id}>
+				<h1>{cat.name}</h1>
+				{post.filter(el => !el.deleted && parseInt(el.idCategorie,10) === cat.id ).map(el => (
+					<Row key={el.id}>
+						<Col md={ 12 }>
+							<Jumbotron>
+								<h2>{el.title}</h2>
+								<h3>{el.author}</h3>
+								<p>
+									{el.body}
+								</p>
+								<Button onClick={() => {removePost(el.id)}}>Remover Post</Button>
+								<ModalEdit post={el}></ModalEdit>
+								<ModalComent idPost={el.id}></ModalComent>
+								<ModalListComent idPost={el.id} ></ModalListComent>
+							</Jumbotron>
+						</Col>
+					</Row>
+				))}
+			</div>
 		))}
 	</div>
 );

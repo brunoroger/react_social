@@ -5,6 +5,10 @@ import uuidv1 from "uuid";
 import serializeForm from 'form-serialize';
 import { addPost } from '../actions';
 
+const mapStateToProps = state => {
+	return { categories: state.categories };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     addPost: post => dispatch(addPost(post))
@@ -59,6 +63,15 @@ class ModalAdd  extends Component {
 									<ControlLabel>Título:</ControlLabel>
 									<FormControl name="title" id="title" type="text" />
 								</FormGroup>
+								<FormGroup controlId="idCategorie">
+								  <ControlLabel>Categoria:</ControlLabel>
+								  <FormControl componentClass="select" name="idCategorie" id="idCategorie">
+									<option value="">Selecione</option>
+									{this.props.categories.map(el => (
+										<option key={el.id} value={el.id}>{el.name}</option>
+									))}
+								  </FormControl>
+								</FormGroup>
 								<FormGroup controlId="body">
 									<ControlLabel>Conteúdo</ControlLabel>
 									<FormControl name="body" componentClass="textarea" id="body"/>
@@ -75,4 +88,4 @@ class ModalAdd  extends Component {
 		}
 }
 
-export default connect(null, mapDispatchToProps)(ModalAdd);
+export default connect(mapStateToProps, mapDispatchToProps)(ModalAdd);
