@@ -3,7 +3,8 @@ import {
 	EDIT_POST,
 	REMOVE_POST,
 	ADD_COMMENT,
-	EDIT_COMMENT
+	EDIT_COMMENT,
+	REMOVE_COMMENT
 } from '../actions';
 
 //import { searchId } from '../util/helper';
@@ -49,6 +50,16 @@ const reducer = (state = initialState, action) => {
 			});
 			
 			return { ...state, comment: updateComment };
+		case REMOVE_COMMENT:
+			const deletedComment = state.comment.map(item => {
+				if(item.id === action.idComment){
+					return {...item, deleted: true };
+				}else{
+					return item;
+				}
+			});
+			
+			return { ...state, comment: deletedComment };
 		default:
 			return state;
 	}

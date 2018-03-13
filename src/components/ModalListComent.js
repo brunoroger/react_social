@@ -2,9 +2,16 @@ import React, { Component } from 'react';
 import { Modal, Button, Row, Col, Well } from 'react-bootstrap';
 import { connect } from "react-redux";
 import ModalEditComent from "./ModalEditComent";
+import { removeComment } from '../actions';
 
 const mapStateToProps = state => {
 	return { comment: state.comment };
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		removeComment: idComment => dispatch(removeComment(idComment))
+	};
 };
 
 class ModalListComent  extends Component {
@@ -36,13 +43,16 @@ class ModalListComent  extends Component {
       				<Modal.Title>Comentários</Modal.Title>
     				</Modal.Header>
     				<Modal.Body>
-						{this.props.comment && this.props.comment.filter(c => c.parentId === this.props.idPost).map(el => (
+						{this.props.comment && this.props.comment.filter(c => !c.deleted && c.parentId === this.props.idPost).map(el => (
 							<Row key={el.id}>
 								<Col md={ 12 }>
 									<Well>
 										<h4>{el.author}</h4>
 										<p>{el.body}</p>
-										<p><ModalEditComent comment={el}></ModalEditComent></p>
+										<p>
+											<Button onClick={() => {this.props.removeComment(el.id)}}>Remover Comentário</Button>
+											<ModalEditComent comment={el}></ModalEditComent>
+										</p>
 									</Well>
 								</Col>
 							</Row>
@@ -57,4 +67,4 @@ class ModalListComent  extends Component {
 		}
 }
 
-export default connect(mapStateToProps)(ModalListComent);
+export default connect(mapStateToProps, mapDispatchToProps)(ModalListComent);
