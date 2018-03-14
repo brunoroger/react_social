@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Modal, Button, Row, Col, Well } from 'react-bootstrap';
 import { connect } from "react-redux";
+import * as CommentsApi from '../util/CommentsApi';
 import ModalEditComent from "./ModalEditComent";
 import { removeComment } from '../actions';
 
@@ -22,7 +23,8 @@ class ModalListComent  extends Component {
     		this.handleClose = this.handleClose.bind(this);
 
     		this.state = {
-				show: false
+				show: false,
+				comments: []
     		};
  		 }
 
@@ -34,6 +36,12 @@ class ModalListComent  extends Component {
     		this.setState({ show: true });
   		}
 		
+		componentDidMount(){
+			CommentsApi.getAll(this.props.idPost).then((comments) => {
+				this.setState({...this.state, comments });
+			});
+		}
+		
 		render(){
 			return (
 				<div>				
@@ -43,7 +51,7 @@ class ModalListComent  extends Component {
       				<Modal.Title>Comentários</Modal.Title>
     				</Modal.Header>
     				<Modal.Body>
-						{this.props.comment && this.props.comment.filter(c => !c.deleted && c.parentId === this.props.idPost).map(el => (
+						{this.state.comments && this.state.comments.filter(c => !c.deleted).map(el => (
 							<Row key={el.id}>
 								<Col md={ 12 }>
 									<Well>

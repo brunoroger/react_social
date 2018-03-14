@@ -63,12 +63,12 @@ class ModalAdd  extends Component {
 									<ControlLabel>Título:</ControlLabel>
 									<FormControl name="title" id="title" type="text" />
 								</FormGroup>
-								<FormGroup controlId="idCategorie">
+								<FormGroup controlId="category">
 								  <ControlLabel>Categoria:</ControlLabel>
-								  <FormControl componentClass="select" name="idCategorie" id="idCategorie">
+								  <FormControl componentClass="select" name="category" id="category">
 									<option value="">Selecione</option>
 									{this.props.categories.map(el => (
-										<option key={el.id} value={el.id}>{el.name}</option>
+										<option key={el.path} value={el.path}>{el.name}</option>
 									))}
 								  </FormControl>
 								</FormGroup>

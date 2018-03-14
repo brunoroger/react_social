@@ -62,12 +62,12 @@ class ModalEdit  extends Component {
 									<ControlLabel>Título:</ControlLabel>
 									<FormControl name="title" id="title" defaultValue={this.props.post.title} type="text" />
 								</FormGroup>
-								<FormGroup controlId="idCategorie">
+								<FormGroup controlId="category">
 								  <ControlLabel>Categoria:</ControlLabel>
-								  <FormControl componentClass="select" name="idCategorie" id="idCategorie" defaultValue={this.props.post.idCategorie}>
+								  <FormControl componentClass="select" name="category" id="category" defaultValue={this.props.post.category}>
 									<option value="">Selecione</option>
 									{this.props.categories.map(el => (
-										<option key={el.id} value={el.id}>{el.name}</option>
+										<option key={el.path} value={el.path}>{el.name}</option>
 									))}
 								  </FormControl>
 								</FormGroup>

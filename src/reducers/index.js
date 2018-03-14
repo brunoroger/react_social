@@ -1,4 +1,5 @@
 import {
+	ADD_CATEGORIE,
 	ADD_POST,
 	EDIT_POST,
 	REMOVE_POST,
@@ -10,28 +11,16 @@ import {
 //import { searchId } from '../util/helper';
 
 const initialState = {
-	categories: [
-		{
-			id: 1,
-			name: 'Social'
-		},
-		{
-			id: 2,
-			name: 'Mídia'
-		},
-		{
-			id: 3,
-			name: 'Eventos'
-		}
-	],
+	categories: [],
 	post: [],
 	comment: []
 };
 
 const reducer = (state = initialState, action) => {
 	switch(action.type){
+		case ADD_CATEGORIE:
+			return { ...state, categories: [...state.categories, action.categorie] };
 		case ADD_POST:
-			console.log({ ...state, post: [...state.post, action.post] });
 			return { ...state, post: [...state.post, action.post] };
 		case EDIT_POST:
 			const updatePost = state.post.map(item => {

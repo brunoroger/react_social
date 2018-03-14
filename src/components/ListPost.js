@@ -29,9 +29,9 @@ const ConnectedListPost = ({post, categories, removePost}) => (
 		</Row>
 		<br/>
 		{categories.map(cat => (
-			<div key={cat.id}>
+			<div key={cat.path}>
 				<h1>{cat.name}</h1>
-				{post.filter(el => !el.deleted && parseInt(el.idCategorie,10) === cat.id ).map(el => (
+				{post.filter(el => !el.deleted && el.category === cat.path ).map(el => (
 					<Row key={el.id}>
 						<Col md={ 12 }>
 							<Jumbotron>
