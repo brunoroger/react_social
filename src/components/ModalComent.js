@@ -1,15 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, Button, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
-import { connect } from "react-redux";
-import uuidv1 from "uuid";
-import serializeForm from 'form-serialize';
 import { addComment } from '../actions';
-
-const mapDispatchToProps = dispatch => {
-  return {
-    addComment: comment => dispatch(addComment(comment))
-  };
-};
 
 class ModalComent  extends Component {
 		constructor(props, context) {
@@ -19,8 +10,7 @@ class ModalComent  extends Component {
     		this.handleClose = this.handleClose.bind(this);
 
     		this.state = {
-				show: false,
-				idPost: props.idPost
+				show: false
     		};
  		 }
 
@@ -33,13 +23,9 @@ class ModalComent  extends Component {
   		}
 		
 		handleSubmit = (e) => {
-			e.preventDefault()
-			const comment = serializeForm(e.target, { hash: true });
-			comment.id = uuidv1();
-			comment.parentId = this.state.idPost;
-			this.props.addComment(comment);
+			this.props.onAdd(e);
 			this.setState({ ...this.state, show: false });
-		}
+		};
 		
 		render(){
 			return (
@@ -71,4 +57,4 @@ class ModalComent  extends Component {
 		}
 }
 
-export default connect(null, mapDispatchToProps)(ModalComent);
+export default ModalComent;

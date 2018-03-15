@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { Modal, Button, Row, Col, Well } from 'react-bootstrap';
 import { connect } from "react-redux";
+import uuidv1 from "uuid";
+import serializeForm from 'form-serialize';
 import * as CommentsApi from '../util/CommentsApi';
+import ModalComent from './ModalComent';
 import ModalEditComent from "./ModalEditComent";
 import { removeComment } from '../actions';
 
@@ -29,11 +32,11 @@ class ModalListComent  extends Component {
  		 }
 
   		handleClose() {
-   		this.setState({ show: false });
+			this.setState({ ...this.state, show: false });
   		}
 
   		handleShow() {
-    		this.setState({ show: true });
+    		this.setState({ ...this.state, show: true });
   		}
 		
 		componentDidMount(){
@@ -41,6 +44,23 @@ class ModalListComent  extends Component {
 				this.setState({...this.state, comments });
 			});
 		}
+		
+		onAdd = (e) => {
+			e.preventDefault()
+			const comment = serializeForm(e.target, { hash: true });
+			comment.id = uuidv1();
+			comment.parentId = this.props.idPost;
+			comment.timestamp = Date.now();
+			
+			CommentsApi.add(comment).then((res) => {
+				this.setState({ ...this.state, comments: [ ...this.state.comments, res ] });
+			});
+		};
+		
+		/*onUpdate = (id, comment) => {
+			
+			
+		};*/
 		
 		render(){
 			return (
@@ -67,6 +87,7 @@ class ModalListComent  extends Component {
 						))}
     				</Modal.Body>
     				<Modal.Footer>
+						<ModalComent onAdd={this.onAdd}></ModalComent>
 						<Button onClick={this.handleClose}>Fechar</Button>
     				</Modal.Footer>
 				</Modal>

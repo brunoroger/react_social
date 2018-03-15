@@ -3,7 +3,6 @@ import { Row, Col, Jumbotron, Button } from 'react-bootstrap';
 import { connect } from "react-redux";
 import ModalAdd from './ModalAdd';
 import ModalEdit from './ModalEdit';
-import ModalComent from './ModalComent';
 import ModalListComent from './ModalListComent';
 import { removePost } from '../actions';
 import * as PostApi from '../util/PostApi';
@@ -47,7 +46,6 @@ const ConnectedListPost = ({post, categories, removePost}) => (
 									});
 								}}>Remover Post</Button>
 								<ModalEdit post={el}></ModalEdit>
-								<ModalComent idPost={el.id}></ModalComent>
 								<ModalListComent idPost={el.id} ></ModalListComent>
 							</Jumbotron>
 						</Col>
