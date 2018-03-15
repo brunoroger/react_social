@@ -6,6 +6,7 @@ import ModalEdit from './ModalEdit';
 import ModalComent from './ModalComent';
 import ModalListComent from './ModalListComent';
 import { removePost } from '../actions';
+import * as PostApi from '../util/PostApi';
 
 const mapStateToProps = state => {
 	return {
@@ -40,7 +41,11 @@ const ConnectedListPost = ({post, categories, removePost}) => (
 								<p>
 									{el.body}
 								</p>
-								<Button onClick={() => {removePost(el.id)}}>Remover Post</Button>
+								<Button onClick={() => {
+									PostApi.remove(el.id).then(() => {
+										removePost(el.id);
+									});
+								}}>Remover Post</Button>
 								<ModalEdit post={el}></ModalEdit>
 								<ModalComent idPost={el.id}></ModalComent>
 								<ModalListComent idPost={el.id} ></ModalListComent>

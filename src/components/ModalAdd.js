@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import uuidv1 from "uuid";
 import serializeForm from 'form-serialize';
 import { addPost } from '../actions';
+import * as PostApi from '../util/PostApi';
 
 const mapStateToProps = state => {
 	return { categories: state.categories };
@@ -39,8 +40,12 @@ class ModalAdd  extends Component {
 			e.preventDefault()
 			const post = serializeForm(e.target, { hash: true });
 			post.id = uuidv1();
-			this.props.addPost(post);
-			this.setState({ show: false });
+			post.timestamp = Date.now();
+			
+			PostApi.add(post).then((res) => {
+				this.props.addPost(res);
+				this.setState({ show: false });
+			});
 		}
 		
 		render(){

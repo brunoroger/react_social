@@ -3,6 +3,7 @@ import { Modal, Button, Glyphicon, FormGroup, ControlLabel, FormControl } from '
 import { connect } from "react-redux";
 import serializeForm from 'form-serialize';
 import { editPost } from '../actions';
+import * as PostApi from '../util/PostApi';
 
 const mapStateToProps = state => {
 	return { categories: state.categories };
@@ -37,9 +38,11 @@ class ModalEdit  extends Component {
 		handleSubmit = (e) => {
 			e.preventDefault()
 			const post = serializeForm(e.target, { hash: true });
-			post.id = this.props.post.id;
-			this.props.editPost(post);
-			this.setState({ show: false });
+			
+			PostApi.edit(this.props.post.id, post).then((res) => {
+				this.props.editPost(res);
+				this.setState({ show: false });
+			});
 		}
 		
 		render(){
@@ -54,22 +57,9 @@ class ModalEdit  extends Component {
 						</Modal.Header>
 						<form onSubmit={this.handleSubmit}>
 							<Modal.Body>
-								<FormGroup controlId="author">
-									<ControlLabel>Nome:</ControlLabel>
-									<FormControl name="author" id="author" defaultValue={this.props.post.author} type="text" />
-								</FormGroup>
 								<FormGroup controlId="title">
 									<ControlLabel>Título:</ControlLabel>
 									<FormControl name="title" id="title" defaultValue={this.props.post.title} type="text" />
-								</FormGroup>
-								<FormGroup controlId="category">
-								  <ControlLabel>Categoria:</ControlLabel>
-								  <FormControl componentClass="select" name="category" id="category" defaultValue={this.props.post.category}>
-									<option value="">Selecione</option>
-									{this.props.categories.map(el => (
-										<option key={el.path} value={el.path}>{el.name}</option>
-									))}
-								  </FormControl>
 								</FormGroup>
 								<FormGroup controlId="body">
 									<ControlLabel>Conteúdo</ControlLabel>
