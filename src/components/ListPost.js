@@ -6,6 +6,7 @@ import ModalEdit from './ModalEdit';
 import ModalListComent from './ModalListComent';
 import { removePost } from '../actions';
 import * as PostApi from '../util/PostApi';
+import Post from './Post';
 
 const mapStateToProps = state => {
 	return {
@@ -33,22 +34,7 @@ const ConnectedListPost = ({post, categories, removePost}) => (
 				<h1>{cat.name}</h1>
 				{post.filter(el => !el.deleted && el.category === cat.path ).map(el => (
 					<Row key={el.id}>
-						<Col md={ 12 }>
-							<Jumbotron>
-								<h2>{el.title}</h2>
-								<h3>{el.author}</h3>
-								<p>
-									{el.body}
-								</p>
-								<Button onClick={() => {
-									PostApi.remove(el.id).then(() => {
-										removePost(el.id);
-									});
-								}}>Remover Post</Button>
-								<ModalEdit post={el}></ModalEdit>
-								<ModalListComent idPost={el.id} ></ModalListComent>
-							</Jumbotron>
-						</Col>
+						<Post removePost={removePost} post={el}/>
 					</Row>
 				))}
 			</div>
