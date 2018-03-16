@@ -12,12 +12,6 @@ const mapStateToProps = state => {
 	return { comment: state.comment };
 };
 
-const mapDispatchToProps = dispatch => {
-	return {
-		removeComment: idComment => dispatch(removeComment(idComment))
-	};
-};
-
 class ModalListComent  extends Component {
 		constructor(props, context) {
     		super(props, context);
@@ -57,10 +51,33 @@ class ModalListComent  extends Component {
 			});
 		};
 		
-		/*onUpdate = (id, comment) => {
-			
-			
-		};*/
+		onUpdate = (id, comment) => {
+			CommentsApi.edit(id, comment).then((res) => {
+				const updateComment = this.state.comments.map(item => {
+					if(item.id === id){
+						return {...item, ...res};
+					}else{
+						return item;
+					}
+				});
+				
+				this.setState({ ...this.state, comments: updateComment });
+			});
+		};
+		
+		onRemove = (id) => {
+			CommentsApi.remove(id).then(() => {
+				const deletedComment = this.state.comments.map(item => {
+					if(item.id === id){
+						return {...item, deleted: true };
+					}else{
+						return item;
+					}
+				});
+				
+				this.setState({ ...this.state, comments: deletedComment });
+			});
+		};
 		
 		render(){
 			return (
@@ -78,8 +95,8 @@ class ModalListComent  extends Component {
 										<h4>{el.author}</h4>
 										<p>{el.body}</p>
 										<p>
-											<Button onClick={() => {this.props.removeComment(el.id)}}>Remover Comentário</Button>
-											<ModalEditComent comment={el}></ModalEditComent>
+											<Button onClick={() => {this.onRemove(el.id)}}>Remover Comentário</Button>
+											<ModalEditComent onUpdate={this.onUpdate} comment={el}></ModalEditComent>
 										</p>
 									</Well>
 								</Col>
@@ -96,4 +113,4 @@ class ModalListComent  extends Component {
 		}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ModalListComent);
+export default connect(mapStateToProps)(ModalListComent);

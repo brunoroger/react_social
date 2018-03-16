@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Modal, Button, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
-import { addComment } from '../actions';
 
 class ModalComent  extends Component {
 		constructor(props, context) {

@@ -1,14 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, Button, Glyphicon, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
-import { connect } from "react-redux";
 import serializeForm from 'form-serialize';
-import { editComment } from '../actions';
-
-const mapDispatchToProps = dispatch => {
-  return {
-    editComment: comment => dispatch(editComment(comment))
-  };
-};
 
 class ModalEditComent  extends Component {
 		constructor(props, context) {
@@ -23,7 +15,7 @@ class ModalEditComent  extends Component {
  		 }
 
   		handleClose() {
-   		this.setState({ ...this.state, show: false });
+			this.setState({ ...this.state, show: false });
   		}
 
   		handleShow() {
@@ -33,8 +25,8 @@ class ModalEditComent  extends Component {
 		handleSubmit = (e) => {
 			e.preventDefault()
 			const comment = serializeForm(e.target, { hash: true });
-			comment.id = this.props.comment.id;
-			this.props.editComment(comment);
+			//comment.id = this.props.comment.id;
+			this.props.onUpdate(this.props.comment.id, comment);
 			this.setState({ ...this.state, show: false });
 		}
 		
@@ -50,10 +42,6 @@ class ModalEditComent  extends Component {
 						</Modal.Header>
 						<form onSubmit={this.handleSubmit}>
 							<Modal.Body>
-								<FormGroup controlId="author">
-									<ControlLabel>Nome:</ControlLabel>
-									<FormControl name="author" id="author" type="text" defaultValue={this.props.comment.author} />
-								</FormGroup>
 								<FormGroup controlId="body">
 									<ControlLabel>Comentário</ControlLabel>
 									<FormControl name="body" componentClass="textarea" defaultValue={this.props.comment.body} id="body"/>
@@ -70,4 +58,4 @@ class ModalEditComent  extends Component {
 		}
 }
 
-export default connect(null, mapDispatchToProps)(ModalEditComent);
+export default ModalEditComent;

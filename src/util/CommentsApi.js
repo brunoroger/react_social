@@ -19,3 +19,19 @@ fetch(apiAdd,{
 	},
 	body: JSON.stringify(comment)
 }).then(res => res.json());
+
+export const edit = (id, comment) =>
+fetch(apiAdd +'/'+ id, {
+	method: 'PUT',
+	headers: {
+	  ...headers,
+	  'Content-Type': 'application/json'
+	},
+	body: JSON.stringify(comment)
+}).then(res => res.json());
+
+export const remove = (id) =>
+fetch(apiAdd +'/'+ id, {
+	method: 'DELETE',
+	headers
+}).then(res => res.json());
