@@ -29,7 +29,7 @@ class ModalComent  extends Component {
 		render(){
 			return (
 				<div>				
-					<Button bsStyle="primary" onClick={this.handleShow}>Comentar</Button>
+					<Button className="right" bsStyle="primary" onClick={this.handleShow}>Comentar</Button>
 					<Modal show={this.state.show} onHide={this.handleClose}>
 						<Modal.Header>
 							<Modal.Title>Comentário</Modal.Title>

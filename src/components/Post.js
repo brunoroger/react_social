@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Jumbotron, Button } from 'react-bootstrap';
+import { Col, Jumbotron, Button, Glyphicon } from 'react-bootstrap';
 import * as PostApi from '../util/PostApi';
 import ModalEdit from './ModalEdit';
 import ModalListComent from './ModalListComent';
@@ -33,14 +33,14 @@ class Post  extends Component {
 					<p>
 						{this.props.post.body}
 					</p>
-					<Button onClick={() => {
+					<ModalEdit post={this.props.post}></ModalEdit>
+					<Button bsStyle="danger" className="left" onClick={() => {
 						PostApi.remove(this.props.post.id).then(() => {
 							this.props.removePost(this.props.post.id);
 						});
-					}}>Remover Post</Button>
-					<ModalEdit post={this.props.post}></ModalEdit>
+					}}><Glyphicon glyph="remove" /> Remover Post</Button>
+					<Button className="left" onClick={() => { this.voted(this.props.post.id); }}><Glyphicon glyph="thumbs-up" /> {this.state.option === UP_VOTE ? 'Curtir' : 'Descurtir'}</Button>
 					<ModalListComent idPost={this.props.post.id} ></ModalListComent>
-					<Button onClick={() => { this.voted(this.props.post.id); }}>{this.state.option === UP_VOTE ? 'Curtir' : 'Descurtir'}</Button>
 				</Jumbotron>
 			</Col>
 		);

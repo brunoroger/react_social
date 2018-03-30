@@ -83,8 +83,8 @@ class ModalAdd  extends Component {
 								</FormGroup>
 							</Modal.Body>
 							<Modal.Footer>
-								<Button onClick={this.handleClose}>Fechar</Button>
-								<Button type="submit" bsStyle="primary">Cadastrar</Button>
+								<Button className="right" onClick={this.handleClose}>Fechar</Button>
+								<Button className="right" type="submit" bsStyle="primary">Cadastrar</Button>
 							</Modal.Footer>
 						</form>
 					</Modal>

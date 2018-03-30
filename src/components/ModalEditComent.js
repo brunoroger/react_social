@@ -33,7 +33,7 @@ class ModalEditComent  extends Component {
 		render(){
 			return (
 				<div>				
-					<Button bsStyle="primary" onClick={this.handleShow}>
+					<Button className="left" bsStyle="primary" onClick={this.handleShow}>
 						<Glyphicon glyph="edit" /> Editar Comentário
 					</Button>
 					<Modal show={this.state.show} onHide={this.handleClose}>

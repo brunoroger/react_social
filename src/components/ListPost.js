@@ -1,11 +1,8 @@
 import React from 'react';
-import { Row, Col, Jumbotron, Button } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import { connect } from "react-redux";
 import ModalAdd from './ModalAdd';
-import ModalEdit from './ModalEdit';
-import ModalListComent from './ModalListComent';
 import { removePost } from '../actions';
-import * as PostApi from '../util/PostApi';
 import Post from './Post';
 
 const mapStateToProps = state => {

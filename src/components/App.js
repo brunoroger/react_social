@@ -9,6 +9,7 @@ import { addCategorie, addPost } from '../actions';
 //CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap-theme.min.css';
+import '../index.css'
 
 const mapDispatchToProps = dispatch => {
 	return {

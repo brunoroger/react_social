@@ -48,7 +48,7 @@ class ModalEdit  extends Component {
 		render(){
 			return (
 				<div>				
-					<Button bsStyle="primary" className="right" onClick={this.handleShow}>
+					<Button bsStyle="primary" className="left" onClick={this.handleShow}>
 						<Glyphicon glyph="edit" /> Editar
 					</Button>
 					<Modal show={this.state.show} onHide={this.handleClose}>

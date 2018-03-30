@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { Modal, Button, Row, Col, Well } from 'react-bootstrap';
+import { Modal, Button, Row } from 'react-bootstrap';
 import { connect } from "react-redux";
 import uuidv1 from "uuid";
 import serializeForm from 'form-serialize';
 import * as CommentsApi from '../util/CommentsApi';
 import ModalComent from './ModalComent';
-import ModalEditComent from "./ModalEditComent";
-import { removeComment } from '../actions';
+import Comment from "./Comment";
 
 const mapStateToProps = state => {
 	return { comment: state.comment };
@@ -82,7 +81,7 @@ class ModalListComent  extends Component {
 		render(){
 			return (
 				<div>				
-				<Button bsStyle="link" onClick={this.handleShow}>Comentários</Button>
+				<Button className="left" bsStyle="link" onClick={this.handleShow}>Comentários</Button>
 				<Modal show={this.state.show} onHide={this.handleClose}>
     				<Modal.Header>
       				<Modal.Title>Comentários</Modal.Title>
@@ -90,22 +89,13 @@ class ModalListComent  extends Component {
     				<Modal.Body>
 						{this.state.comments && this.state.comments.filter(c => !c.deleted).map(el => (
 							<Row key={el.id}>
-								<Col md={ 12 }>
-									<Well>
-										<h4>{el.author}</h4>
-										<p>{el.body}</p>
-										<p>
-											<Button onClick={() => {this.onRemove(el.id)}}>Remover Comentário</Button>
-											<ModalEditComent onUpdate={this.onUpdate} comment={el}></ModalEditComent>
-										</p>
-									</Well>
-								</Col>
+								<Comment comment={el} onUpdate={this.onUpdate} onRemove={this.onRemove}></Comment>
 							</Row>
 						))}
     				</Modal.Body>
     				<Modal.Footer>
 						<ModalComent onAdd={this.onAdd}></ModalComent>
-						<Button onClick={this.handleClose}>Fechar</Button>
+						<Button className="right" onClick={this.handleClose}>Fechar</Button>
     				</Modal.Footer>
 				</Modal>
 				</div>
