@@ -7,7 +7,7 @@ import ModalListComent from './ModalListComent';
 const UP_VOTE = 'upVote';
 const DOWN_VOTE = 'downVote';
 
-class Post  extends Component {
+class PostItem  extends Component {
 	state = {
 		option: UP_VOTE
 	}
@@ -33,18 +33,11 @@ class Post  extends Component {
 					<p>
 						{this.props.post.body}
 					</p>
-					<ModalEdit post={this.props.post}></ModalEdit>
-					<Button bsStyle="danger" className="left" onClick={() => {
-						PostApi.remove(this.props.post.id).then(() => {
-							this.props.removePost(this.props.post.id);
-						});
-					}}><Glyphicon glyph="remove" /> Remover Post</Button>
-					<Button className="left" onClick={() => { this.voted(this.props.post.id); }}><Glyphicon glyph="thumbs-up" /> {this.state.option === UP_VOTE ? 'Curtir' : 'Descurtir'}</Button>
-					<ModalListComent idPost={this.props.post.id} ></ModalListComent>
+					<Button bsStyle="link" className="left">Ver mais >></Button>
 				</Jumbotron>
 			</Col>
 		);
 	}
 }
 
-export default Post;
+export default PostItem;

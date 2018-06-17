@@ -1,9 +1,9 @@
-import React from 'react';
-import { Row, Col } from 'react-bootstrap';
+import React, { Component } from 'react';
+import { Row, Col, FormControl } from 'react-bootstrap';
 import { connect } from "react-redux";
 import ModalAdd from './ModalAdd';
 import { removePost } from '../actions';
-import Post from './Post';
+import PostItem from './PostItem';
 
 const mapStateToProps = state => {
 	return {
@@ -18,27 +18,40 @@ const mapDispatchToProps = dispatch => {
 	};
 };
 
-const ConnectedListPost = ({post, categories, removePost}) => (
-	<div>    		
-		<Row>
-			<Col md={ 12 }>
-				<ModalAdd></ModalAdd>
-			</Col>
-		</Row>
-		<br/>
-		{categories.map(cat => (
-			<div key={cat.path}>
-				<h1>{cat.name}</h1>
-				{post.filter(el => !el.deleted && el.category === cat.path ).map(el => (
+class ListPost extends Component {
+	
+	state = {
+		categorySel: ""
+	};
+	
+	onChange = (e) => {
+		this.setState({ categorySel: e.target.value });
+	};
+	
+	render(){
+		return (
+			<div>    		
+				<Row>
+					<Col md={ 4 }>
+						<FormControl componentClass="select" name="filterCategory" id="filterCategory" onChange={ this.onChange }>
+							<option value="">Categorias</option>
+							{this.props.categories.map(cat => (
+								<option key={cat.path} value={cat.path}>{cat.name}</option>
+							))}
+						</FormControl>
+					</Col><Col md={ 8 }>
+						<ModalAdd></ModalAdd>
+					</Col>
+				</Row>
+				<br/>
+				{this.props.post.filter(el => !el.deleted && (el.category === this.state.categorySel || this.state.categorySel === "") ).map(el => (
 					<Row key={el.id}>
-						<Post removePost={removePost} post={el}/>
+						<PostItem removePost={removePost} post={el}/>
 					</Row>
 				))}
 			</div>
-		))}
-	</div>
-);
+		);
+	}
+}
 
-const ListPost = connect(mapStateToProps, mapDispatchToProps)(ConnectedListPost);
-
-export default ListPost;
+export default connect(mapStateToProps, mapDispatchToProps)(ListPost);
