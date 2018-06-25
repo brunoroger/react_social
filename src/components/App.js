@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Navbar, Grid } from 'react-bootstrap';
+import { Route } from 'react-router-dom';
 import * as CategoriesApi from '../util/CategoriesApi';
 import * as PostApi from '../util/PostApi';
 import ListPost from './ListPost';
+import PostDetails from './PostDetails';
 import { addCategorie, addPost } from '../actions';
 
 //CSS
@@ -42,13 +44,14 @@ class App extends Component {
     	<div>
       	<Navbar>
       		<Navbar.Header>
-    				<Navbar.Brand>
+    			<Navbar.Brand>
       				<a>React Social</a>
-    				</Navbar.Brand>
-  				</Navbar.Header>
+    			</Navbar.Brand>
+  			</Navbar.Header>
       	</Navbar>
       	<Grid>
-      		<ListPost></ListPost>
+          <Route exact path="/" component={ListPost}/>
+          <Route path="/post/:id" component={PostDetails}/>
       	</Grid>
       </div>
     );

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Col, Jumbotron, Button, Glyphicon } from 'react-bootstrap';
+import { Col, Jumbotron } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import * as PostApi from '../util/PostApi';
-import ModalEdit from './ModalEdit';
-import ModalListComent from './ModalListComent';
 
 const UP_VOTE = 'upVote';
 const DOWN_VOTE = 'downVote';
@@ -33,7 +32,7 @@ class PostItem  extends Component {
 					<p>
 						{this.props.post.body}
 					</p>
-					<Button bsStyle="link" className="left">Ver mais >></Button>
+					<Link to={ "/post/" + this.props.post.id } className="left">Ver mais >></Link>
 				</Jumbotron>
 			</Col>
 		);
