@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
-import { Panel,Tabs,Tab,Row,Col } from 'react-bootstrap';
+import { Panel,Tabs,Tab,Row,Col,Button,Glyphicon } from 'react-bootstrap';
+import uuidv1 from "uuid";
+import serializeForm from 'form-serialize';
 import * as PostApi from '../util/PostApi';
+import * as CommentsApi from '../util/CommentsApi';
+import ModalComent from './ModalComent';
+import Comment from "./Comment";
 
 class PostDetails  extends Component {
 	state = {
@@ -14,14 +19,58 @@ class PostDetails  extends Component {
 			voteScore: 0,
 			deleted: null,
 			commentCount: 0
-		}
+		},
+		comments: []
 	}
 
 	componentDidMount(){
 		PostApi.get(this.props.match.params.id).then((post) => {
 			this.setState({ post });
+			CommentsApi.getAll(post.id).then((comments) => {
+				this.setState({...this.state, comments });
+			});
 		});
 	}
+
+	onAdd = (e) => {
+			e.preventDefault()
+			const comment = serializeForm(e.target, { hash: true });
+			comment.id = uuidv1();
+			comment.parentId = this.props.idPost;
+			comment.timestamp = Date.now();
+			
+			CommentsApi.add(comment).then((res) => {
+				this.setState({ ...this.state, comments: [ ...this.state.comments, res ] });
+			});
+		};
+		
+		onUpdate = (id, comment) => {
+			CommentsApi.edit(id, comment).then((res) => {
+				const updateComment = this.state.comments.map(item => {
+					if(item.id === id){
+						return {...item, ...res};
+					}else{
+						return item;
+					}
+				});
+				
+				this.setState({ ...this.state, comments: updateComment });
+			});
+		};
+		
+		onRemove = (id) => {
+			CommentsApi.remove(id).then(() => {
+				const deletedComment = this.state.comments.map(item => {
+					if(item.id === id){
+						return {...item, deleted: true };
+					}else{
+						return item;
+					}
+				});
+				
+				this.setState({ ...this.state, comments: deletedComment });
+			});
+		};
 
 	render(){
 		return (
@@ -35,12 +84,35 @@ class PostDetails  extends Component {
 						  <Tab eventKey={1} title="Detalhes">
 						    <Row>
 						    	<Col md={ 12 }>
-						    		{this.state.post.body}
+						    		<p>{this.state.post.body}</p>
+						    	</Col>
+						    </Row>
+						    <Row>
+						    	<Col md={ 6 }>
+						    		<p><b>Autor:</b> {this.state.post.author}</p>
+						    	</Col>
+						    	<Col md={ 6 }>
+						    		<p><b>Categoria:</b> {this.state.post.category}</p>
+						    	</Col>
+						    	<Col md={ 6 }>
+						    		<p><b>Curtidas:</b> {this.state.post.voteScore}</p>
+						    	</Col>
+						    	<Col md={ 6 }>
+						    		<Button className="left"><Glyphicon glyph="thumbs-up" /> Curtir</Button>
 						    	</Col>
 						    </Row>
 						  </Tab>
 						  <Tab eventKey={2} title="Comentários">
-						    Comentários
+						  	{this.state.comments && this.state.comments.filter(c => !c.deleted).map(el => (
+								<Row key={el.id}>
+									<Comment comment={el} onUpdate={this.onUpdate} onRemove={this.onRemove}></Comment>
+								</Row>
+							))}
+							<Row>
+								<Col md={ 12 }>
+									<ModalComent onAdd={this.onAdd}></ModalComent>
+								</Col>
+							</Row>
 						  </Tab>
 						</Tabs>
     				</Panel.Body>
