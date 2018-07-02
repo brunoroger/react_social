@@ -8,7 +8,7 @@ const DOWN_VOTE = 'downVote';
 
 class PostItem  extends Component {
 	state = {
-		option: UP_VOTE
+		dateFormat: null
 	}
 	
 	voted = (id) => {
@@ -23,6 +23,12 @@ class PostItem  extends Component {
 		}
 	};
 	
+	componentDidMount(){
+		const date = new Date(this.props.post.timestamp);
+
+		this.setState({ dateFormat: ('0'+ date.getDate()).substr(-2)  + "/" + ('0'+ (date.getMonth()+1)).substr(-2) + "/" + date.getFullYear() });
+	}
+
 	render(){
 		return (
 			<Col md={ 12 }>
@@ -32,7 +38,8 @@ class PostItem  extends Component {
 					<p>
 						{this.props.post.body}
 					</p>
-					<Link to={ "/post/" + this.props.post.id } className="left">Ver mais >></Link>
+					<h4 className="left"><small>Postado em {this.state.dateFormat} - {this.props.post.voteScore > 0 ? this.props.post.voteScore : 0} Curtidas</small></h4>
+					<Link to={ "/post/" + this.props.post.id } className="left margin-top">Ver mais >></Link>
 				</Jumbotron>
 			</Col>
 		);
