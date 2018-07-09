@@ -34,6 +34,10 @@ class PostDetails  extends Component {
 		});
 	}
 
+	onUpdatePost = (post) => {
+		this.setState({...this.state, post: post });
+	};
+
 	onAdd = (e) => {
 			e.preventDefault()
 			const comment = serializeForm(e.target, { hash: true });
@@ -78,7 +82,7 @@ class PostDetails  extends Component {
 		return (
 			<div>
 			<Row>
-				<Link to="/" className="left margin-bottom">&lsaquo;&lsaquo; Voltar</Link>
+				<a href="/" className="left margin-bottom">&lsaquo;&lsaquo; Voltar</a>
 			</Row>
 			{this.state.post.id && !this.state.post.deleted ?
 				<Row>
@@ -106,7 +110,7 @@ class PostDetails  extends Component {
 							    	</Col>
 							    	<Col md={ 6 }>
 							    		<Button className="left"><Glyphicon glyph="thumbs-up" /> Curtir</Button>
-							    		<ModalEdit post={this.state.post}></ModalEdit>
+							    		<ModalEdit post={this.state.post} onUpdatePost={this.onUpdatePost}></ModalEdit>
 							    		<Button bsStyle="danger" className="left" onClick={() => {
 											PostApi.remove(this.state.post.id);
 										}}><Glyphicon glyph="remove" /> Remover Post</Button>

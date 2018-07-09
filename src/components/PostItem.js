@@ -39,7 +39,7 @@ class PostItem  extends Component {
 						{this.props.post.body}
 					</p>
 					<h4 className="left"><small>Postado em {this.state.dateFormat} - {this.props.post.voteScore > 0 ? this.props.post.voteScore : 0} Curtidas</small></h4>
-					<Link to={ "/post/" + this.props.post.id } className="left margin-top">Ver mais >></Link>
+					<a href={ "/post/" + this.props.post.id } className="left margin-top">Ver mais >></a>
 				</Jumbotron>
 			</Col>
 		);

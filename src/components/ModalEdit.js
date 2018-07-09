@@ -42,6 +42,7 @@ class ModalEdit  extends Component {
 			PostApi.edit(this.props.post.id, post).then((res) => {
 				this.props.editPost(res);
 				this.setState({ show: false });
+				this.props.onUpdatePost(res);
 			});
 		}
 		

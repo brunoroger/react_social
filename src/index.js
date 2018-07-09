@@ -12,8 +12,8 @@ document.title = 'React Social';
 const store = createStore(reducer);
 
 ReactDOM.render(
-	<BrowserRouter><Provider store={store}>
-		<App />
-	</Provider></BrowserRouter>,
+	<Provider store={store}>
+		<BrowserRouter><App /></BrowserRouter>
+	</Provider>,
 	document.getElementById('root')
 );
