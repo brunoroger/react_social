@@ -8,6 +8,8 @@ import * as CommentsApi from '../util/CommentsApi';
 import ModalEdit from './ModalEdit';
 import ModalComent from './ModalComent';
 import Comment from "./Comment";
+import RemovePost from './RemovePost';
+import Vote from './Vote';
 
 class PostDetails  extends Component {
 	state = {
@@ -26,13 +28,21 @@ class PostDetails  extends Component {
 	}
 
 	componentDidMount(){
-		PostApi.get(this.props.match.params.id).then((post) => {
+		this.refresh(this.props.match.params.id);
+	}
+
+	refresh = (id) => {
+		PostApi.get(id).then((post) => {
 			this.setState({ post });
 			CommentsApi.getAll(post.id).then((comments) => {
 				this.setState({...this.state, comments });
 			});
 		});
-	}
+	};
+
+	onRemovePost = () => {
+		window.location.href = "/";
+	};
 
 	onUpdatePost = (post) => {
 		this.setState({...this.state, post: post });
@@ -109,11 +119,9 @@ class PostDetails  extends Component {
 							    		<p><b>Curtidas:</b> {this.state.post.voteScore > 0 ? this.state.post.voteScore : 0}</p>
 							    	</Col>
 							    	<Col md={ 6 }>
-							    		<Button className="left"><Glyphicon glyph="thumbs-up" /> Curtir</Button>
+							    		<Vote id={this.state.post.id} onVoted={this.refresh}></Vote>
 							    		<ModalEdit post={this.state.post} onUpdatePost={this.onUpdatePost}></ModalEdit>
-							    		<Button bsStyle="danger" className="left" onClick={() => {
-											PostApi.remove(this.state.post.id);
-										}}><Glyphicon glyph="remove" /> Remover Post</Button>
+							    		<RemovePost onRemove={this.onRemovePost}></RemovePost>
 							    	</Col>
 							    </Row>
 							  </Tab>
