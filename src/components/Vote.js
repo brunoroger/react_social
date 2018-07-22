@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Button, Glyphicon, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
-import { connect } from "react-redux";
-import serializeForm from 'form-serialize';
+import { Button, Glyphicon  } from 'react-bootstrap';
 import * as PostApi from '../util/PostApi';
 
 const UP_VOTE = 'upVote';
@@ -14,16 +12,16 @@ class Vote  extends Component {
 		
 		voted = () => {
 			if(this.state.option === UP_VOTE){
-				PostApi.voted(this.props.id, DOWN_VOTE).then(() => {
+				PostApi.voted(this.props.id, DOWN_VOTE).then((res) => {
 					this.setState({ option: DOWN_VOTE });
+					this.props.onVoted(res);
 				});
 			}else{
-				PostApi.voted(this.props.id, UP_VOTE).then(() => {
+				PostApi.voted(this.props.id, UP_VOTE).then((res) => {
 					this.setState({ option: UP_VOTE });
+					this.props.onVoted(res);
 				});
 			}
-
-			this.props.onVoted(this.props.id);
 		};
 		
 		render(){

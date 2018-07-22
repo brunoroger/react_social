@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Panel,Tabs,Tab,Row,Col,Button,Glyphicon } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Panel,Tabs,Tab,Row,Col } from 'react-bootstrap';
 import uuidv1 from "uuid";
 import serializeForm from 'form-serialize';
 import * as PostApi from '../util/PostApi';
@@ -40,6 +39,10 @@ class PostDetails  extends Component {
 		});
 	};
 
+	onVoted = (post) => {
+		this.setState({ post });
+	}
+
 	onRemovePost = () => {
 		window.location.href = "/";
 	};
@@ -52,11 +55,14 @@ class PostDetails  extends Component {
 			e.preventDefault()
 			const comment = serializeForm(e.target, { hash: true });
 			comment.id = uuidv1();
-			comment.parentId = this.props.idPost;
+			comment.parentId = this.state.post.id;
 			comment.timestamp = Date.now();
 			
 			CommentsApi.add(comment).then((res) => {
-				this.setState({ ...this.state, comments: [ ...this.state.comments, res ] });
+				const post = this.state.post;
+				post.commentCount = post.commentCount + 1;
+
+				this.setState({ ...this.state, post, comments: [ ...this.state.comments, res ] });
 			});
 		};
 		
@@ -83,8 +89,10 @@ class PostDetails  extends Component {
 						return item;
 					}
 				});
-				
-				this.setState({ ...this.state, comments: deletedComment });
+				const post = this.state.post;
+				post.commentCount = post.commentCount - 1;
+
+				this.setState({ ...this.state, post, comments: deletedComment });
 			});
 		};
 
@@ -119,13 +127,13 @@ class PostDetails  extends Component {
 							    		<p><b>Curtidas:</b> {this.state.post.voteScore > 0 ? this.state.post.voteScore : 0}</p>
 							    	</Col>
 							    	<Col md={ 6 }>
-							    		<Vote id={this.state.post.id} onVoted={this.refresh}></Vote>
+							    		<Vote id={this.state.post.id} onVoted={this.onVoted}></Vote>
 							    		<ModalEdit post={this.state.post} onUpdatePost={this.onUpdatePost}></ModalEdit>
 							    		<RemovePost onRemove={this.onRemovePost}></RemovePost>
 							    	</Col>
 							    </Row>
 							  </Tab>
-							  <Tab eventKey={2} title="Comentários">
+							  <Tab eventKey={2} title={ this.state.post.commentCount +" Comentários"}>
 							  	{this.state.comments && this.state.comments.filter(c => !c.deleted).map(el => (
 									<Row key={el.id}>
 										<Comment comment={el} onUpdate={this.onUpdate} onRemove={this.onRemove}></Comment>

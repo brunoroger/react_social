@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Modal, Button, Glyphicon, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+import { Button, Glyphicon,  } from 'react-bootstrap';
 import { connect } from "react-redux";
-import serializeForm from 'form-serialize';
 import { removePost } from '../actions';
 import * as PostApi from '../util/PostApi';
 

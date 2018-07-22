@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Row, Col, FormControl } from 'react-bootstrap';
 import { connect } from "react-redux";
 import ModalAdd from './ModalAdd';
-import { removePost } from '../actions';
+import { removePost, editPost } from '../actions';
 import PostItem from './PostItem';
 
 const mapStateToProps = state => {
@@ -14,6 +14,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
+		editPost:   post => dispatch(editPost(post)),
 		removePost: idPost => dispatch(removePost(idPost))
 	};
 };
@@ -66,7 +67,7 @@ class ListPost extends Component {
 				})
 				.map(el => (
 					<Row key={el.id}>
-						<PostItem removePost={removePost} post={el}/>
+						<PostItem editPost={this.props.editPost} removePost={this.props.removePost} post={el}/>
 					</Row>
 				))}
 			</div>
