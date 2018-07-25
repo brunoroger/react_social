@@ -21,3 +21,8 @@ body {
 .margin-bottom{
 	margin-bottom: 10px;
 }
+
+.clear{
+	height: 10px;
+	clear: both;
+}

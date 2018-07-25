@@ -8,7 +8,7 @@ import ModalEdit from './ModalEdit';
 import ModalComent from './ModalComent';
 import Comment from "./Comment";
 import RemovePost from './RemovePost';
-import Vote from './Vote';
+import VotePost from './VotePost';
 
 class PostDetails  extends Component {
 	state = {
@@ -127,7 +127,7 @@ class PostDetails  extends Component {
 							    		<p><b>Curtidas:</b> {this.state.post.voteScore > 0 ? this.state.post.voteScore : 0}</p>
 							    	</Col>
 							    	<Col md={ 6 }>
-							    		<Vote id={this.state.post.id} onVoted={this.onVoted}></Vote>
+							    		<VotePost id={this.state.post.id} voteScore={this.state.post.voteScore} onVoted={this.onVoted}></VotePost>
 							    		<ModalEdit post={this.state.post} onUpdatePost={this.onUpdatePost}></ModalEdit>
 							    		<RemovePost onRemove={this.onRemovePost}></RemovePost>
 							    	</Col>

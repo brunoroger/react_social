@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col, Jumbotron } from 'react-bootstrap';
 import RemovePost from './RemovePost';
-import Vote from './Vote';
+import VotePost from './VotePost';
 import ModalEdit from './ModalEdit';
 
 class PostItem  extends Component {
@@ -38,7 +38,7 @@ class PostItem  extends Component {
 							<a href={ "/post/" + this.props.post.id } className="left margin-top">Ver mais >></a>
 						</Col>
 						<Col md={ 6 }>
-							<Vote id={this.props.post.id} onVoted={this.onVoted}></Vote>
+							<VotePost id={this.props.post.id} voteScore={this.props.post.voteScore} onVoted={this.onVoted}></VotePost>
 							<ModalEdit post={this.props.post} onUpdatePost={this.props.editPost}></ModalEdit>
 							<RemovePost idPost={this.props.post.id} onRemove={this.props.removePost}></RemovePost>
 						</Col>
