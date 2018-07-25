@@ -34,7 +34,7 @@ class PostItem  extends Component {
 					</Row>
 					<Row>
 						<Col md={ 6 }>
-							<h4 className="left"><small>Postado em {this.state.dateFormat} - {this.props.post.voteScore > 0 ? this.props.post.voteScore : 0} Curtidas - {this.props.post.commentCount > 0 ? this.props.post.commentCount : 0} Comentários</small></h4>
+							<h4 className="left"><small>Postado em {this.state.dateFormat} - {this.props.post.voteScore} Curtidas - {this.props.post.commentCount > 0 ? this.props.post.commentCount : 0} Comentários</small></h4>
 							<a href={ "/post/" + this.props.post.id } className="left margin-top">Ver mais >></a>
 						</Col>
 						<Col md={ 6 }>

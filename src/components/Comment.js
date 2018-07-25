@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Row, Col, Well, Button, Glyphicon } from 'react-bootstrap';
 import VoteComment from './VoteComment';
 import ModalEditComent from './ModalEditComent';
-import * as CommentsApi from '../util/CommentsApi';
 
 class Comment  extends Component {
 
@@ -18,7 +17,7 @@ class Comment  extends Component {
 					</Row>
 					<Row>
 						<Col md={2}>
-							<h4 className="left"><small>{this.props.comment.voteScore > 0 ? this.props.comment.voteScore : 0} Curtidas</small></h4>
+							<h4 className="left"><small>{this.props.comment.voteScore} Curtidas</small></h4>
 						</Col>
 						<Col md={10}>
 							<p>

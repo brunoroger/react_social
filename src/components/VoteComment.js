@@ -28,7 +28,7 @@ class VoteComment  extends Component {
 			return (
 				<div>				
 					<Button className="left" onClick={this.votedUp}><Glyphicon glyph="thumbs-up" /></Button>
-					<Button className="left" disabled={this.props.voteScore <= 0} onClick={this.votedDown}><Glyphicon glyph="thumbs-down" /></Button>
+					<Button className="left" onClick={this.votedDown}><Glyphicon glyph="thumbs-down" /></Button>
 				</div>
 			);
 		}
